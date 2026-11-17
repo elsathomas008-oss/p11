@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Bridge - Bulk Supply Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- SupplyBridge Navigation Bar -->
+    <header>
+        <a href="#" class="logo">SupplyBridge*</a>
+
+        <nav>
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="#">Blog &#x25BE;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Latest News</a></li>
+                        <li><a href="#">Articles</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Plans &#x25BE;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Freelancer</a></li>
+                        <li><a href="#">Startup</a></li>
+                        <li><a href="#">Enterprise</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="auth-buttons">
+            <a href="#" class="btn-login">Log In</a>
+            <a href="#" class="btn-signup">Sign Up</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <div class="banner-title">SUPPLY BRIDGE PROCUREMENT</div>
+
+        <!-- 4-Item Supply Catalog Row -->
+        <section class="catalog-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80" alt="Standard Pallet">
+                <p>Standard Pallet – Rs. 300</p>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?auto=format&fit=crop&w=400&q=80" alt="Shipping Crate">
+                <p>Shipping Crate – Rs. 200</p>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=400&q=80" alt="Thermal Box">
+                <p>Thermal Box – Rs. 250</p>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80" alt="Cargo Container">
+                <p>Cargo Container – Rs. 350</p>
+            </div>
+        </section>
+
+        <!-- Order Form Section -->
+        <section class="order-section">
+            <h2>Order Supplies</h2>
+
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="qty1">Standard Pallet (Quantity)</label>
+                    <input type="text" id="qty1" placeholder="Enter quantity (e.g., 2)">
+                </div>
+
+                <div class="form-group">
+                    <label for="qty2">Shipping Crate (Quantity)</label>
+                    <input type="text" id="qty2" placeholder="Enter quantity (e.g., 1)">
+                </div>
+
+                <div class="form-group">
+                    <label for="qty3">Thermal Box (Quantity)</label>
+                    <input type="text" id="qty3" placeholder="Enter quantity (e.g., 2)">
+                </div>
+
+                <div class="form-group">
+                    <label for="qty4">Cargo Container (Quantity)</label>
+                    <input type="text" id="qty4" placeholder="Enter quantity (e.g., 1)">
+                </div>
+
+                <div class="btn-wrapper">
+                    <button type="button" class="btn-order" onclick="calculateOrder()">Place Order</button>
+                </div>
+            </form>
+
+            <p id="error-msg" class="error-text"></p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Purchase Order Bill Display -->
+        <section class="bill-section">
+            <h3>Purchase Order Bill!!</h3>
+            <div class="total-row">
+                <span class="total-label">Total Price</span>
+                <span id="total-price" class="total-value">Rs. 0</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Supply Bridge. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function calculateOrder() {
+            const q1 = document.getElementById("qty1").value.trim();
+            const q2 = document.getElementById("qty2").value.trim();
+            const q3 = document.getElementById("qty3").value.trim();
+            const q4 = document.getElementById("qty4").value.trim();
+
+            const errorMsg = document.getElementById("error-msg");
+            const totalDisplay = document.getElementById("total-price");
+
+            // Regex to verify only whole numbers (0-9) are entered
+            const onlyNumbers = /^[0-9]+$/;
+
+            // 1. Check if any input box is empty
+            if (q1 === "" || q2 === "" || q3 === "" || q4 === "") {
+                errorMsg.textContent = "Error: All quantity boxes are required. Enter 0 if an item is not needed.";
+                totalDisplay.textContent = "Rs. 0";
+            }
+            // 2. Validate that all inputs contain only numbers
+            else if (!onlyNumbers.test(q1) || !onlyNumbers.test(q2) || !onlyNumbers.test(q3) || !onlyNumbers.test(q4)) {
+                errorMsg.textContent = "Error: Please enter valid numeric quantities only (no letters or symbols).";
+                totalDisplay.textContent = "Rs. 0";
+            }
+            // 3. Process and display the Purchase Order Bill
+            else {
+                errorMsg.textContent = "";
+
+                const total = (Number(q1) * 300) + (Number(q2) * 200) + (Number(q3) * 250) + (Number(q4) * 350);
+                totalDisplay.textContent = "Rs. " + total;
+            }
+        }
+    </script>
+
+</body>
+</html>
